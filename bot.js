@@ -5,20 +5,22 @@ var botID = process.env.BOT_ID;
 var images = {
 
 
-}
+};
+
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/DM3000/,
-      maxRegex = /(?!\/DM3000 )([0-9]+)/;
+      botRegex = /^\/RNG/,
+      maxRegex = /(?!\/RNG )([0-9]+)/;
 
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
 
     if(maxRegex.test(request.text)) {
       var maxNumber = request.text.match(maxRegex);
+      postMessage("Calculating...");
       postMessage(String(Math.floor(Math.random() * Number(maxNumber[0])) + 1));
     } else {
-      postMessage("Please let me know what the max random number should be. Example /DM3000 100 will give you a number between 1 and 100 (including 1 and 100).");
+      postMessage("Please let me know what the max random number should be. Example /RNG 100 will give you a number between 1 and 100 (including 1 and 100).");
     }
 
     this.res.end();
