@@ -146,4 +146,3 @@ Then navigate to `http://127.0.0.1:5000/` in a browser.
 ![Local bot](http://i.groupme.com/502x133.png.f06c630467954f5dab4c742dc67b71bf)
 
 ## All done! Go play around and make the bot your own.
-
