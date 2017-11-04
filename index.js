@@ -29,5 +29,5 @@ server.listen(port);
 
 function ping() {
   this.res.writeHead(200);
-  this.res.end(Math.floor(Math.random() * 100););
+  this.res.end("hello mate " + Math.floor(Math.random() * 100));
 }
