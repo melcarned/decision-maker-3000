@@ -17,8 +17,7 @@ function respond() {
 
     if(maxRegex.test(request.text)) {
       var maxNumber = request.text.match(maxRegex);
-      postMessage("Calculating...");
-      postMessage(String(Math.floor(Math.random() * Number(maxNumber[0])) + 1));
+      postMessage("Calculating...\n" + String(Math.floor(Math.random() * Number(maxNumber[0])) + 1));
     } else {
       postMessage("Please let me know what the max random number should be. Example /RNG 100 will give you a number between 1 and 100 (including 1 and 100).");
     }
