@@ -13,8 +13,8 @@ function respond() {
 
     var maxNumber = request.text.match(maxRegex);
 
-    if(maxNumber) {
-      postMessage(maxNumber[0]); //String(Math.floor(Math.random() * 100) + 1);
+    if(maxNumber != null) {
+      postMessage(String(Math.floor(Math.random() * Number(maxNumber[0])) + 1));
     } else {
       postMessage("Please let me know what the max random number should be. Example /RNG 100 will give you a number between 1 and 100 (including 1 and 100).");
     }
@@ -27,10 +27,10 @@ function respond() {
   }
 }
 
-function postMessage(max) {
+function postMessage(randomNumber) {
   var botResponse, options, body, botReq;
 
-  botResponse = max;
+  botResponse = randomNumber;
 
   options = {
     hostname: 'api.groupme.com',
