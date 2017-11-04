@@ -10,7 +10,7 @@ function respond() {
 
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
-    postMessage(request.text.exec(maxRegex));
+    postMessage(request.text.match(maxRegex));
     this.res.end();
   } else {
     console.log("What in tarnation!?!");
@@ -21,8 +21,8 @@ function respond() {
 
 function postMessage(max) {
   var botResponse, options, body, botReq;
-  console.log(max[0]);
-  botResponse = String(Math.floor(Math.random() * 100) + 1);
+
+  botResponse = String(max[0])); //String(Math.floor(Math.random() * 100) + 1);
 
   options = {
     hostname: 'api.groupme.com',
