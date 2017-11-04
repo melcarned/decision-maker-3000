@@ -22,7 +22,7 @@ function respond() {
 function postMessage(max) {
   var botResponse, options, body, botReq;
 
-  botResponse = String(max[0])); //String(Math.floor(Math.random() * 100) + 1);
+  botResponse = String(max[0]); //String(Math.floor(Math.random() * 100) + 1);
 
   options = {
     hostname: 'api.groupme.com',
