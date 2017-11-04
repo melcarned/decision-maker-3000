@@ -5,11 +5,12 @@ var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/RNG$/;
+      botRegex = /^\/RNG /,
+      maxRegex = /(?!\/RNG )([0-9]+)/;
 
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
-    postMessage();
+    postMessage(request.text.exec(maxRegex));
     this.res.end();
   } else {
     console.log("What in tarnation!?!");
@@ -18,10 +19,10 @@ function respond() {
   }
 }
 
-function postMessage() {
+function postMessage(max) {
   var botResponse, options, body, botReq;
-
-  botResponse = "->" + Math.floor(Math.random() * 100);
+  console.log(max[0]);
+  botResponse = String(Math.floor(Math.random() * 100) + 1);
 
   options = {
     hostname: 'api.groupme.com',
