@@ -5,14 +5,14 @@ var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/cool guy$/;
+      botRegex = /^\/RNG$/;
 
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
     postMessage();
     this.res.end();
   } else {
-    console.log("don't care");
+    console.log("What in tarnation!?!");
     this.res.writeHead(200);
     this.res.end();
   }
