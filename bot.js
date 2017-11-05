@@ -17,20 +17,26 @@ var images = [
 
 
 function respond() {
-  var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/RNG/,
-      maxRegex = /(?!\/RNG )([0-9]+)/;
+  var request = "@DM3K Should I go to the gym?", //JSON.parse(this.req.chunks[0]),
+      botRegex = /^@DM3K Should I/i;
 
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
 
-    if(maxRegex.test(request.text)) {
+    //Get action to decide on
+    var decision = request.text.substr(str.indexOf("@DM3K Should I") + 1);
+    console.log(decision);
+    postMessage(decision);
+/*
+    if(decison !== "") {
       var maxNumber = request.text.match(maxRegex);
       postMessage("Calculating...\n" + String(Math.floor(Math.random() * Number(maxNumber[0])) + 1) + "!");
+      console.log("Calculating decision.");
     } else {
       postMessage("Please let me know what the max random number should be. Example /RNG 100 will give you a number between 1 and 100 (including 1 and 100).");
+      console.log("Action to decide on was not entered.");
     }
-
+*/
     this.res.end();
   } else {
     console.log("What in tarnation!?!");
@@ -79,6 +85,5 @@ function postMessage(randomNumber) {
   });
   botReq.end(JSON.stringify(body));
 }
-
 
 exports.respond = respond;
