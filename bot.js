@@ -78,16 +78,23 @@ function postMessage(response) {
     method: 'POST'
   };
 
-  body = {
-    "bot_id" : botID,
-    "attachments" : [
-      {
-        "type"  : "image",
-        "url"   : images[Math.floor(Math.random() * 9)]
-      }
-    ],
-    "text" : botResponse
-  };
+  if(response.includes("I'm not sure what to decide on.")) {
+    body = {
+      "bot_id" : botID,
+      "text" : botResponse
+    };
+  } else {
+    body = {
+      "bot_id" : botID,
+      "attachments" : [
+        {
+          "type"  : "image",
+          "url"   : images[Math.floor(Math.random() * 9)]
+        }
+      ],
+      "text" : botResponse
+    };
+  }
 
   console.log('sending ' + botResponse + ' to ' + botID);
 
