@@ -21,31 +21,40 @@ function respond() {
       botRegex = /^@DM3K/ig,
       decisionRegex = /^@DM3K Should I ([\w\d\s]+)/ig;
 
+  console.log(request.text);
   if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
 
-    //Get action to decide on
     var decision = decisionRegex.exec(request.text);
-    decision[1] = decision[1].trim();
-    console.log(decision[1]);
 
-    if(decision[1] !== null && decision[1] !== "") {
+    if(decision !== null){
+      if(decision[1] !== undefined && decision[1] !== null && decision[1] !== "") {
 
-      //Decide
-      console.log("Calculating decision.");
-      postMessage("Calculating...\n" + decide(decison[1]));
-      console.log(decide(decision[1]));
+        //Get action to decide on
+        decision[1] = decision[1].trim();
+        console.log(decision[1]);
+
+        //Decide
+        console.log("Calculating decision.");
+        postMessage("Calculating...\n" + decide(decision[1]));
+        console.log(decide(decision[1]));
+        this.res.end("I made a decision.\n");
+      } else {
+          //Invalid input
+          postMessage("I'm not sure what to decide on. Please ask me again by saying \"@DM3K Should I [insert your action here]?\"");
+          console.log("Action to decide on was not entered.");
+          this.res.end("I'm unable to decide.\n");
+      }
     } else {
-      //Invalid input
-      postMessage("I'm not sure what to decide on. Please ask me again by saying \"@DM3K Should I [insert your action here]?\"");
-      console.log("Action to decide on was not entered.");
-    }
-
-    this.res.end();
+        //Invalid input
+        postMessage("I'm not sure what to decide on. Please ask me again by saying \"@DM3K Should I [insert your action here]?\"");
+        console.log("Action to decide on was not entered.");
+        this.res.end("I'm unable to decide.\n");
+      }
   } else {
     console.log("What in tarnation!?!");
     this.res.writeHead(200);
-    this.res.end();
+    this.res.end("This is not for me.\n");
   }
 }
 
