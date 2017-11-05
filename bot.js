@@ -21,11 +21,11 @@ function respond() {
       botRegex = /^@DM3K/ig,
       decisionRegex = /^@DM3K Should I ([\w\d\s]+)/ig;
 
-  if(request && botRegex.test(request)) {
+  if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
 
     //Get action to decide on
-    var decision = decisionRegex.exec(request);
+    var decision = decisionRegex.exec(request.text);
     decision[1] = decision[1].trim();
     console.log(decision[1]);
 
