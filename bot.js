@@ -17,26 +17,30 @@ var images = [
 
 
 function respond() {
-  var request = "@DM3K Should I go to the gym?", //JSON.parse(this.req.chunks[0]),
-      botRegex = /^@DM3K Should I/i;
+  var request = JSON.parse(this.req.chunks[0]),
+      botRegex = /^@DM3K/ig,
+      decisionRegex = /^@DM3K Should I ([\w\d\s]+)/ig;
 
-  if(request.text && botRegex.test(request.text)) {
+  if(request && botRegex.test(request)) {
     this.res.writeHead(200);
 
     //Get action to decide on
-    var decision = request.text.substr(str.indexOf("@DM3K Should I") + 1);
-    console.log(decision);
-    postMessage(decision);
-/*
-    if(decison !== "") {
-      var maxNumber = request.text.match(maxRegex);
-      postMessage("Calculating...\n" + String(Math.floor(Math.random() * Number(maxNumber[0])) + 1) + "!");
+    var decision = decisionRegex.exec(request);
+    decision[1] = decision[1].trim();
+    console.log(decision[1]);
+
+    if(decision[1] !== null && decision[1] !== "") {
+
+      //Decide
       console.log("Calculating decision.");
+      postMessage("Calculating...\n" + decide(decison[1]));
+      console.log(decide(decision[1]));
     } else {
-      postMessage("Please let me know what the max random number should be. Example /RNG 100 will give you a number between 1 and 100 (including 1 and 100).");
+      //Invalid input
+      postMessage("I'm not sure what to decide on. Please ask me again by saying \"@DM3K Should I [insert your action here]?\"");
       console.log("Action to decide on was not entered.");
     }
-*/
+
     this.res.end();
   } else {
     console.log("What in tarnation!?!");
@@ -45,10 +49,19 @@ function respond() {
   }
 }
 
-function postMessage(randomNumber) {
+function decide(decision) {
+  var d = Math.floor(Math.random() * 100) + 1;
+  if(d > 50) {
+    return "I think you should " + decision + ".";
+  } else {
+    return "I don't think you should " + decision + ".";
+  }
+}
+
+function postMessage(response) {
   var botResponse, options, body, botReq;
 
-  botResponse = randomNumber;
+  botResponse = response;
 
   options = {
     hostname: 'api.groupme.com',
