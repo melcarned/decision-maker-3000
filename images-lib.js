@@ -21,3 +21,5 @@ var images = [
   "https://i.groupme.com/1500x1446.jpeg.dc30bd1068bc4f56a2eb59f420d04ca5",
   "https://i.groupme.com/680x473.jpeg.887ba2c742044edf86ea39fe71cb70d7"
 ];
+
+exports.images = images;
