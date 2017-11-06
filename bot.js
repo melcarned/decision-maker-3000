@@ -1,6 +1,7 @@
 var HTTPS = require('https');
 var cool = require('cool-ascii-faces');
-var images = require('images');
+var imagesLib = require('./images-lib.js');
+
 var botID = process.env.BOT_ID;
 var undecidedMessage = "I'm not sure what to decide on. Please ask me again by saying \"@DM3K Should I [insert your action here]?\"";
 
@@ -78,7 +79,7 @@ function postMessage(response, hasDecided) {
     body.attachments = [
       {
         "type"  : "image",
-        "url"   : images[Math.floor(Math.random() * 9)]
+        "url"   : imagesLib.images[Math.floor(Math.random() * 9)]
       }
     ];
   };
