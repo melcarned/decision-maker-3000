@@ -2,6 +2,8 @@ var HTTPS = require('https');
 var cool = require('cool-ascii-faces');
 
 var botID = process.env.BOT_ID;
+var undecidedMessage = "I'm not sure what to decide on. Please ask me again by saying \"@DM3K Should I [insert your action here]?\"";
+
 var images = [
   "https://i.groupme.com/1200x676.jpeg.88c57afb3454485aa8156f2d3e871261",
   "https://i.groupme.com/529x433.jpeg.9292a98cd15e4955923de1c564b391d7",
@@ -41,13 +43,13 @@ function respond() {
         this.res.end("I made a decision.\n");
       } else {
           //Invalid input
-          postMessage("I'm not sure what to decide on. Please ask me again by saying \"@DM3K Should I [insert your action here]?\"");
+          postMessage(undecidedMessage);
           console.log("Action to decide on was not entered.");
           this.res.end("I'm unable to decide.\n");
       }
     } else {
         //Invalid input
-        postMessage("I'm not sure what to decide on. Please ask me again by saying \"@DM3K Should I [insert your action here]?\"");
+        postMessage(undecidedMessage);
         console.log("Action to decide on was not entered.");
         this.res.end("I'm unable to decide.\n");
       }
@@ -67,10 +69,8 @@ function decide(decision) {
   }
 }
 
-function postMessage(response) {
-  var botResponse, options, body, botReq;
-
-  botResponse = response;
+function postMessage(botResponse) {
+  var options, body, botReq;
 
   options = {
     hostname: 'api.groupme.com',
@@ -78,22 +78,18 @@ function postMessage(response) {
     method: 'POST'
   };
 
-  if(botResponse.includes("I'm not sure what to decide on.")) {
-    body = {
-      "bot_id" : botID,
-      "text" : botResponse
-    };
-  } else {
-    body = {
-      "bot_id" : botID,
-      "attachments" : [
-        {
-          "type"  : "image",
-          "url"   : images[Math.floor(Math.random() * 9)]
-        }
-      ],
-      "text" : botResponse
-    };
+  body = {
+    "bot_id" : botID,
+    "text" : botResponse
+  };
+
+  if(!botResponse.includes("I'm not sure what to decide on.")) {
+    body.attachments = [
+      {
+        "type"  : "image",
+        "url"   : images[Math.floor(Math.random() * 9)]
+      }
+    ];
   }
 
   console.log('sending ' + botResponse + ' to ' + botID);
