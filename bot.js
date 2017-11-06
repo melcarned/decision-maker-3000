@@ -69,8 +69,10 @@ function decide(decision) {
   }
 }
 
-function postMessage(botResponse) {
-  var options, body, botReq;
+function postMessage(response) {
+  var botResponse, options, body, botReq;
+
+  botResponse = String(response);
 
   options = {
     hostname: 'api.groupme.com',
