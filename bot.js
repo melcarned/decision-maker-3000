@@ -78,7 +78,7 @@ function postMessage(response) {
     method: 'POST'
   };
 
-  if(response.includes("I'm not sure what to decide on.")) {
+  if(botResponse.includes("I'm not sure what to decide on.")) {
     body = {
       "bot_id" : botID,
       "text" : botResponse
