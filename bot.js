@@ -38,18 +38,18 @@ function respond() {
 
         //Decide
         console.log("Calculating decision.");
-        postMessage("Calculating...\n" + decide(decision[1]));
+        postMessage("Calculating...\n" + decide(decision[1]), true);
         console.log(decide(decision[1]));
         this.res.end("I made a decision.\n");
       } else {
           //Invalid input
-          postMessage(undecidedMessage);
+          postMessage(undecidedMessage, false);
           console.log("Action to decide on was not entered.");
           this.res.end("I'm unable to decide.\n");
       }
     } else {
         //Invalid input
-        postMessage(undecidedMessage);
+        postMessage(undecidedMessage, false);
         console.log("Action to decide on was not entered.");
         this.res.end("I'm unable to decide.\n");
       }
@@ -69,10 +69,10 @@ function decide(decision) {
   }
 }
 
-function postMessage(response) {
+function postMessage(response, hasDecided) {
   var botResponse, options, body, botReq;
 
-  botResponse = String(response);
+  botResponse = response;
 
   options = {
     hostname: 'api.groupme.com',
@@ -85,7 +85,7 @@ function postMessage(response) {
     "text" : botResponse
   };
 
-  if(!botResponse.includes("I'm not sure what to decide on.")) {
+  if(hasDecided) {
     body.attachments = [
       {
         "type"  : "image",
