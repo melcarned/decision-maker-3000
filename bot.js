@@ -79,7 +79,7 @@ function postMessage(response, hasDecided) {
     body.attachments = [
       {
         "type"  : "image",
-        "url"   : imagesLib.images[Math.floor(Math.random() * 9)]
+        "url"   : imagesLib.images[Math.floor(Math.random() * 20)]
       }
     ];
   };
