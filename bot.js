@@ -90,7 +90,7 @@ function postMessage(botResponse) {
         "url"   : images[Math.floor(Math.random() * 9)]
       }
     ];
-  }
+  };
 
   console.log('sending ' + botResponse + ' to ' + botID);
 
